@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sald by sald-devs</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/sald-devs/sald">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/sald-devs/sald/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/sald-devs/sald/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Sald</h1>
+          <p>Studio A Ludum Dare</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/sald-devs">sald-devs</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="welcome-to-sald" class="anchor" href="#welcome-to-sald" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to SALD!</h1>
+
+<p>SALD is a lightweight custom built web based Game Engine that enables users to develop games quickly and easily. This engine written in JavaScript using the Node.js run time environment. The engine is divided distinctly into various modules which can be imported by the user. The user can then implement game mechanics and other aspects of the game using functions provided through these modules.</p>
+
+<h2>
+<a id="installation-instructions" class="anchor" href="#installation-instructions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation instructions</h2>
+
+<p>Fork this repo into desired location then from command line run</p>
+
+<pre><code>npm link
+</code></pre>
+
+<p>Note: sudo may be required on Mac or Linux, or the command prompt may need to be
+run as administrator on Windows.</p>
+
+<p>Note: The current version of node.js for windows has a bug. If you receive an
+ENOENT error, check <a href="http://stackoverflow.com/questions/25093276/node-js-windows-error-enoent-stat-c-users-rt-appdata-roaming-npm">here</a></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>sald [command] args
+  commands
+    new/create [dir] - create a new sald project
+    build - build sald project in cwd based on build.js
+</code></pre>
+
+<p>You will want to use <code>sald create myProjName</code> to create a starter project. It is not
+recommended to do this in the sald directory.</p>
+
+<h2>
+<a id="buildjs" class="anchor" href="#buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>build.js</h2>
+
+<p>The build.js file must be in the current working directory when calling sald build.
+This file should export an object which specifies the output location, entry point, and the method for handling custom file types.
+By default, Sald handles transformations for common types, like <code>.js</code>, <code>.json</code>, <code>.png</code>, <code>.jpg</code>, <code>.wav</code>, <code>.ogg</code>. You may override these with your own handlers if you wish. All other filetypes will need a handler implemented in this <code>build.js</code>.</p>
+
+<p>Sald can also handle <code>colon</code>ical transforms, specified like <code>gradient:#000-#fff</code>, for which you must specify a function which generates a JS block that exports the expected return value.</p>
+
+<p>Each transform can also take the object form <code>{canonicalFunc: aFunc, tranformFunc: bFunc}</code>, where <code>bFunc</code> is what you used before, and <code>aFunc</code> is used to determine the canonical name of the parameter. This is used to ensure there is no duplication of resolved <code>require</code>s in the final output html file. If the transform is not in this object form, then a default canonical function is assumed (direct string comparison for <code>colon</code>icals, and normalized path comparison for file extension types).</p>
+
+<h3>
+<a id="example-buildjs" class="anchor" href="#example-buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example build.js</h3>
+
+<pre><code>function gradientCanon(param) {
+  // some conversion here
+  // ex: 'black-white' will be converted to '#000-#fff'
+  return convertedString;
+}
+
+function gradientTransform(param) {
+  // some external imagemagick call
+  return 'var img = new Image(); img.src = ' + base64Data + '; module.exports = img;';
+}
+
+function unownCanon(filepath, rootpath) {
+  // rootpath is the name of the folder where the require is called. Useful for relative require parsing, using _path.join_
+  canonicalName = someTransformation();
+  return canonicalName;
+}
+
+function unownLoader(filepath) {
+  // filepath passed is the resule of unownCanon
+  var someJsTxt = something //your loader
+  return 'module.exports = ' + someJsTxt;
+}
+
+// Export build options
+module.exports = {
+  // Entry point for build
+  entry :  {
+    js : 'src/main.js',       //the script to be called
+    html : 'src/main.html'    //will be used as template for final output
+  },
+  // Output options
+  output : {
+    html : 'build.html'  //location to output final built project
+  },
+  // Options for each file type
+  transforms : {
+    'gradient:': {
+      canonicalFunc: gradientCanon,
+      transformFunc: gradientTransform
+    },
+    '.unown': { // If a custom canonicalization is needed
+      canonicalFunc: unownCanon,
+      transformFunc: unownLoader
+    },
+    '.unown': unownLoader // If no custom canonicalization is needed for this type
+};
+</code></pre>
+
+<p>This build.js file now knows what to do with a <code>require('../pokedex/pokemon87.unown');</code> or <code>require('gradient:black-white')</code>.</p>
+
+<h2>
+<a id="libraries" class="anchor" href="#libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries</h2>
+
+<ul>
+<li>
+<a href="sald/mainloop.js">mainloop.js</a> <a href="docs/mainloop.md">docs</a> provides a basic mainloop.</li>
+<li>
+<a href="sald/benchmark.js">benchmark.js</a> <a href="docs/benchmark.md">docs</a> contains utility functions for benchmarking.</li>
+<li>
+<a href="sald/collide.js">collide.js</a> <a href="docs/collide.md">docs</a> contains collision checking functions.</li>
+<li>
+<a href="sald/Sprite.js">Sprite.js</a> <a href="docs/Sprite.md">docs</a> is a class that wraps spritesheets and makes it easy to select frames and animations.</li>
+<li>
+<a href="sald/Tilemap.js">Tilemap.js</a> <a href="docs/Tilemap.md">docs</a> is a class that wraps maps made of image tiles.</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
