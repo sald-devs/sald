@@ -18,74 +18,74 @@
 
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/sald-devs/sald">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/sald-devs/sald/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/sald-devs/sald/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="header">
+      <nav>
+        <li class="fork"><a href="https://github.com/sald-devs/sald">View On GitHub</a></li>
+        <li class="downloads"><a href="https://github.com/sald-devs/sald/zipball/master">ZIP</a></li>
+        <li class="downloads"><a href="https://github.com/sald-devs/sald/tarball/master">TAR</a></li>
+        <li class="title">DOWNLOADS</li>
+      </nav>
+    </div><!-- end header -->
 
     <div class="wrapper">
 
       <section>
         <div id="title">
-          <h1>Sald</h1>
-          <p>Studio A Ludum Dare</p>
+          <h1>S.A.L.D.</h1>
+          <p>Studio A Ludum Dare JS Game Engine</p>
           <hr>
-          <p><a href="http://sald-devs.github.io/sald/">Home</a> | <a href="http://sald-devs.github.io/sald/examples.html">Examples</a> | <a href="http://sald-devs.github.io/sald/about.html">About Us</a> </p>
+          <p><a href="http://sald-devs.github.io/sald/">Home</a> | <a href="http://sald-devs.github.io/sald/reference.html">Reference</a> | <a href="http://sald-devs.github.io/sald/examples.html">Examples</a> | <a href="http://sald-devs.github.io/sald/about.html">About Us</a> </p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/sald-devs">sald-devs</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h1>
-<a id="welcome-to-sald" class="anchor" href="#welcome-to-sald" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to SALD!</h1>
+        <h1><a id="welcome-to-sald" class="anchor" href="#welcome-to-sald" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to SALD!</h1>
 
-<p>SALD is a lightweight custom built web based Game Engine that enables users to develop games quickly and easily. This engine is written in JavaScript using the Node.js run time environment. The engine is divided distinctly into various modules which can be imported by the user. The user can then implement game mechanics and other aspects of the game using functions provided through these modules.</p>
+        <p>SALD is a lightweight custom built javascript game engine that enables users to develop games quickly and easily. This engine is written in JavaScript using the Node.js run time environment. The engine is divided distinctly into various modules which can be imported by the user. The user can then implement game mechanics and other aspects of the game using functions provided through these modules.</p>
 
-<h2>
-<a id="installation-instructions" class="anchor" href="#installation-instructions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation instructions</h2>
+        <h2>
+        <a id="installation-instructions" class="anchor" href="#installation-instructions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation instructions</h2>
 
-<p>Fork this repo into desired location then from command line run</p>
+        <p>Fork this repo into desired location then from command line run</p>
 
-<pre><code>npm link
-</code></pre>
+        <pre><code>npm link</code></pre>
+        <p>Having problems? Check <a href="#problems">Common Problems!</a></p>
 
-<p>Note: sudo may be required on Mac or Linux, or the command prompt may need to be
-run as administrator on Windows.</p>
+        <h2>
+        <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Note: The current version of node.js for windows has a bug. If you receive an
-ENOENT error, check <a href="http://stackoverflow.com/questions/25093276/node-js-windows-error-enoent-stat-c-users-rt-appdata-roaming-npm">here</a></p>
+        <pre><code>sald [command] args
+          commands
+            new/create [dir] - create a new sald project
+            build - build sald project in cwd based on build.js
+        </code></pre>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+        <p>You will want to use <code>sald create &lt;myProjName&gt;</code> to create a starter project. It is not
+        recommended to do this in the sald directory.</p>
 
-<pre><code>sald [command] args
-  commands
-    new/create [dir] - create a new sald project
-    build - build sald project in cwd based on build.js
-</code></pre>
+        <p>Edit and place files in the src folder created by sald. Then run:</p>
+        <pre><code>sald build</code></pre>
+        <p>A build.html file will be created in the directory that will contain the game!</p>
 
-<p>You will want to use <code>sald create myProjName</code> to create a starter project. It is not
-recommended to do this in the sald directory.</p>
+        <p>Having problems? Check <a href="#problems">Common Problems!</a></p>
 
-<h2>
-<a id="buildjs" class="anchor" href="#buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>build.js</h2>
+        <h2>
+        <a id="buildjs" class="anchor" href="#buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>build.js</h2>
 
-<p>The build.js file must be in the current working directory when calling sald build.
-This file should export an object which specifies the output location, entry point, and the method for handling custom file types.
-By default, Sald handles transformations for common types, like <code>.js</code>, <code>.json</code>, <code>.png</code>, <code>.jpg</code>, <code>.wav</code>, <code>.ogg</code>. You may override these with your own handlers if you wish. All other filetypes will need a handler implemented in this <code>build.js</code>.</p>
+        <p>The build.js file must be in the current working directory when calling sald build.
+        This file should export an object which specifies the output location, entry point, and the method for handling custom file types.
+        By default, Sald handles transformations for common types, like <code>.js</code>, <code>.json</code>, <code>.png</code>, <code>.jpg</code>, <code>.wav</code>, <code>.ogg</code>. You may override these with your own handlers if you wish. All other filetypes will need a handler implemented in this <code>build.js</code>.</p>
 
-<p>Sald can also handle <code>colon</code>ical transforms, specified like <code>gradient:#000-#fff</code>, for which you must specify a function which generates a JS block that exports the expected return value.</p>
+        <p>Sald can also handle <code>colon</code>ical transforms, specified like <code>gradient:#000-#fff</code>, for which you must specify a function which generates a JS block that exports the expected return value.</p>
 
-<p>Each transform can also take the object form <code>{canonicalFunc: aFunc, tranformFunc: bFunc}</code>, where <code>bFunc</code> is what you used before, and <code>aFunc</code> is used to determine the canonical name of the parameter. This is used to ensure there is no duplication of resolved <code>require</code>s in the final output html file. If the transform is not in this object form, then a default canonical function is assumed (direct string comparison for <code>colon</code>icals, and normalized path comparison for file extension types).</p>
+        <p>Each transform can also take the object form <code>{canonicalFunc: aFunc, tranformFunc: bFunc}</code>, where <code>bFunc</code> is what you used before, and <code>aFunc</code> is used to determine the canonical name of the parameter. This is used to ensure there is no duplication of resolved <code>require</code>s in the final output html file. If the transform is not in this object form, then a default canonical function is assumed (direct string comparison for <code>colon</code>icals, and normalized path comparison for file extension types).</p>
 
-<h3>
-<a id="example-buildjs" class="anchor" href="#example-buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example build.js</h3>
+        <h3>
+        <a id="example-buildjs" class="anchor" href="#example-buildjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example build.js</h3>
 
-<pre><code>function gradientCanon(param) {
+        <pre><code>
+function gradientCanon(param) {
   // some conversion here
   // ex: 'black-white' will be converted to '#000-#fff'
   return convertedString;
@@ -131,31 +131,55 @@ module.exports = {
     },
     '.unown': unownLoader // If no custom canonicalization is needed for this type
 };
-</code></pre>
+        </code></pre>
 
-<p>This build.js file now knows what to do with a <code>require('../pokedex/pokemon87.unown');</code> or <code>require('gradient:black-white')</code>.</p>
+        <p>This build.js file now knows what to do with a <code>require('../pokedex/pokemon87.unown');</code> or <code>require('gradient:black-white')</code>.</p>
 
-<h2>
-<a id="libraries" class="anchor" href="#libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries</h2>
+        <p>Having problems? Check <a href="#problems">Common Problems!</a></p>
 
-<ul>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/mainloop.js">mainloop.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/mainloop.md">docs</a> provides a basic mainloop.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/benchmark.js">benchmark.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/benchmark.md">docs</a> contains utility functions for benchmarking.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/collide.js">collide.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/collide.md">docs</a> contains collision checking functions.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/Sprite.js">Sprite.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/Sprite.md">docs</a> is a class that wraps spritesheets and makes it easy to select frames and animations.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/Tilemap.js">Tilemap.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/Tilemap.md">docs</a> is a class that wraps maps made of image tiles.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/sound.js">Sound.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/sound.md">docs</a> provides basic sound functionalities.</li>
-<li>
-<a href="https://github.com/ixchow/sald/blob/master/sald/GameObject.js">GameObject.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/GameObject.md">docs</a> provides basic introduction to the GameObject library.</li>
-</ul>
+        <h2>
+        <a id="libraries" class="anchor" href="#libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries</h2>
+
+        <ul>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/mainloop.js">mainloop.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/mainloop.md">docs</a> provides a basic mainloop.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/benchmark.js">benchmark.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/benchmark.md">docs</a> contains utility functions for benchmarking.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/collide.js">collide.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/collide.md">docs</a> contains collision checking functions.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/Sprite.js">Sprite.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/Sprite.md">docs</a> is a class that wraps spritesheets and makes it easy to select frames and animations.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/Tilemap.js">Tilemap.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/Tilemap.md">docs</a> is a class that wraps maps made of image tiles.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/sound.js">Sound.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/sound.md">docs</a> provides basic sound functionalities.</li>
+          <li>
+          <a href="https://github.com/ixchow/sald/blob/master/sald/GameObject.js">GameObject.js</a> <a href="https://github.com/ixchow/sald/blob/master/docs/GameObject.md">docs</a> provides basic introduction to the GameObject library.</li>
+        </ul>
+
+        <h2>Common Problems</h2><a name ="problems"></a>
+        <h3>Installation</h3>
+        <ul>
+          <p>Sudo may be required on Mac or Linux, or the command prompt may need to be run as administrator on Windows.</p>
+
+          <p>If you encounter path issues in windows you probably have to convert line endings from dos to unix format on ..\sald\bin\sald.js We reccomend using a tool like  <a href="http://dos2unix.sourceforge.net/"> dos2unix</a></p>
+
+          <p>The current version of node.js for windows has a bug. If you receive an
+          ENOENT error, check <a href="http://stackoverflow.com/questions/25093276/node-js-windows-error-enoent-stat-c-users-rt-appdata-roaming-npm">here</a></p>
+        </ul>
+
+        <h3>Usage</h3>
+        <ul>
+          <p>In windows you might need to give sald build the project you are trying to build.</p>
+          <p>Including...</p>
+        </ul>
+
+        <h3>build.js</h3>
+        <ul>
+          <p>?</p>
+        </ul>
+
       </section>
-
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
