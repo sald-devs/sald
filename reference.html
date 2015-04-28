@@ -57,43 +57,80 @@
       </ul>
       
       <hr>
-      <div id="benchmarkRef">  
-        <a name="benchmark"></a>
+      <a name="benchmark"></a>
+      <div class="jump" id="benchmarkRef">
         <h2>Benchmark</h2>
+          <p>The benchmark library can be used to calculate some data about the performance of a function.</p>
+
+          <h3>Example</h3>
+<pre><code>
+var benchmark = require('sald:benchmark');
+
+function myReallySlowFunction() {
+  var i = 0;
+  for(var j = 0; j &lt; 1000000000; j++) {
+    i++;
+  }
+}
+
+console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
+</code></pre>
+          <h3>Functions</h3>
+          <h4>benchmark(fn,opts)</h4>
+
+          <p>benchmark will run fn a number of times specified by opts, either in iterations or elapsed time,
+          and return stats about the runtime performance of that fn.</p>
+
+          <h5>Parameters</h5>
+          <code>
+
+          | Param | Type     | Description                                                         |
+          |-------|----------|---------------------------------------------------------------------|
+          | fn    | function | the function to benchmark                                           |
+          | opts  | object   | the options object which specifies iterations, timeout(ms), or both |
+
+          ###Returns
+
+          | Return | Type  | Description                                           |
+          |--------|-------|-------------------------------------------------------|
+          | avg    | float | average runtime for each call to fn (ms)              |
+          | min    | float | minimum runtime for each call to fn (ms)              |
+          | total  | float | total time it takes to run every iteration of fn (ms) |
+          | iters  | int   | total number of times fn executed                     |</code>
       </div>
 
       <hr>
-      <div id="collideRef">  
-        <a name="collide"></a>
+      <a name="collide"></a>
+      <div class="jump" id="collideRef">  
         <h2>Collide</h2>
       </div>
 
       <hr>
-      <div id="gameobjectRef">  
-        <a name="gameobject"></a>
+      <a name="gameobject"></a>
+      <div class="jump" id="gameobjectRef">  
         <h2>Game Object</h2>
       </div>
 
       <hr>
-      <div id="mainloopRef">  
-        <a name="mainloop"></a>
+      <a name="mainloop"></a>
+      <div class="jump" id="mainloopRef">  
         <h2>Mainloop</h2>
       </div>
 
       <hr>
-      <div id="soundRef">  
-        <a name="sound"></a>
+      <a name="sound"></a>
+      <div class="jump" id="soundRef">  
         <h2>Sound</h2>
       </div>
 
       <hr>
-      <div id="spriteRef">  
-        <a name="sprite"></a>
+      <a name="sprite"></a>
+      <div class="jump" id="spriteRef">  
         <h2>Sprite</h2>
       </div>
 
       <hr>
-      <div id="tilemapRef">  
+      <div class="jump" id="tilemapRef">  
         <a name="tilemap"></a>
         <h2>Tilemap</h2>
       </div>
