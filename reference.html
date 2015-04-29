@@ -82,27 +82,331 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
           and return stats about the runtime performance of that fn.</p>
 
           <h5>Parameters</h5>
-          <code>
-
-          | Param | Type     | Description                                                         |
-          |-------|----------|---------------------------------------------------------------------|
-          | fn    | function | the function to benchmark                                           |
-          | opts  | object   | the options object which specifies iterations, timeout(ms), or both |
-
-          ###Returns
-
-          | Return | Type  | Description                                           |
-          |--------|-------|-------------------------------------------------------|
-          | avg    | float | average runtime for each call to fn (ms)              |
-          | min    | float | minimum runtime for each call to fn (ms)              |
-          | total  | float | total time it takes to run every iteration of fn (ms) |
-          | iters  | int   | total number of times fn executed                     |</code>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>fn</td>
+              <td>function</td>
+              <td>the function to benchmark</td>
+            </tr>
+            <tr>
+              <td>opts</td>
+              <td>object</td>
+              <td>the options object which specifies iterations, timeout(ms), or both</td>
+            </tr>
+          </table>
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>avg</td>
+              <td>float</td>
+              <td>average runtime for each call to fn (ms)</td>
+            <tr>
+            <tr>
+              <td>min</td>
+              <td>float</td>
+              <td>minimum runtime for each call to fn (ms)</td>
+            </tr>
+            <tr>
+              <td>total</td>
+              <td>float</td>
+              <td>total time it takes to run every iteration of fn (ms)</td>
+            </tr>
+            <tr>
+              <td>iters</td>
+              <td>int</td>
+              <td>total number of times fn executed</td>
+            </tr>
+          </table> 
       </div>
 
       <hr>
       <a name="collide"></a>
       <div class="jump" id="collideRef">  
         <h2>Collide</h2>
+          <p>The collision library is used to test collisions between various shapes. The compiled collide.js can be viewed [here](../sald/collide.js)</p>
+          <p>The collide.js currently supports 6 collision detection functions as follows:</p>
+          <ul>
+            <li>Circle vs Circle</li>
+            <li>Rectangle vs Rectangle</li>
+            <li>Polygon vs Polygon {Convex}</li>
+            <li>Ray vs Circle</li>
+            <li>Ray vs Rectangle</li>
+            <li>Ray vs Convex Polygon</li>
+          </ul>
+
+          <h3>Shape Definitions</h3>
+
+          <h4>Circle</h4>
+          <p>A circle defined by the center and radius.</p>
+<pre><code>{
+  x: the x coordinate of the center of the circle
+  y: the y coordinate of the center of the circle
+  r: the radius of the circle
+}</pre></code>
+
+          <h4>Rectangle</h4>
+          <p>A rectangle defined by the top left and bottom right points.</p>
+<pre><code>{
+  min : {
+    x: the minimum x coordinate of the rectangle
+    y: the minimum y coordinate of the rectangle
+  },
+  max: {
+    x: the maximum x coordinate of the rectangle
+    y: the maximum y coordinate of the rectangle
+  }
+}</pre></code>
+
+          <h4>Polygon</h4>
+          <p>A polygon defined by the verticies.</p>
+<pre><code>[
+  {
+    x: the x coordinate of a vertex in the polygon
+    y: the y coordinate of a vertex in the polygon
+  },
+  ...
+]</pre></code>
+
+          <h4>Ray</h4>
+          <p>Ray defined by the start and end points.</p>
+<pre><code>{
+  start: {
+    x: x coordinate of the start of the ray
+    y: y coordinate of the start of the ray
+  },
+  end: {
+    x: x coordinate of the end of the ray
+    y: y coordinate of the end of the ray
+  }
+}</pre></code>
+
+          <h3>Functions</h3>
+
+          <h4>function rectangleRectangle(r1,r2)</h4>
+          <p>Check to see if r1 and r2 overlap</p>
+
+          <h5>Parameters</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>r1</td>
+              <td>Rectangle</td>
+              <td>First rectangle to check</td>
+            </tr>
+            <tr>
+              <td>r2</td>
+              <td>Rectangle</td>
+              <td>Second rectangle to check</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>bool</td>
+              <td>true if r1 and r2 overlap, otherwise false</td>
+            </tr>
+          </table>
+
+          <h4>function rayRectangle(r,b)</h4>
+          <p>Check to see if r intersetcts b, and return where if it does</p>
+
+          <h3>Parameters</h3>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>r</td>
+              <td>Ray</td>
+              <td>Ray to check for intersection</td>
+            </tr>
+            <tr>
+              <td>b</td>
+              <td>Rectangle</td>
+              <td>Rectangle being intersected</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>object</td>
+              <td>{t: t} if there is an intersection at (r.start + (r.end - r.start)*t), otherwise null</td>
+            </tr>
+          </table>
+
+          <h4>function circleCircle(c1,c2)</h4>
+          <p>Check to see if c1 and c2 overlap</p>
+
+          <h3>Parameters</h3>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>c1</td>
+              <td>Circle</td>
+              <td>First circle to check</td>
+            </tr>
+            <tr>
+              <td>c2</td>
+              <td>Circle</td>
+              <td>Second circle to check</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>bool</td>
+              <td>true if c1 and c2 overlap, otherwise false</td>
+            </tr>
+          </table>                                             |
+
+          <h4>function rayCircle(r,c)</h4>
+          <p>Check to see if r intersetcts c, and return where if it does</p>
+
+          <h5>Parameters</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>r</td>
+              <td>Ray</td>
+              <td>Ray to check for intersection</td>
+            </tr>
+            <tr>
+              <td>c</td>
+              <td>Circle</td>
+              <td>Circle to being intersected</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>object</td>
+              <td>{t: t} if there is an intersection at (r.start + (r.end - r.start)*t), otherwise null</td>
+            </tr>
+          </table>
+
+          <h4>function convexConvex(p1, p2)</h4>
+          <p>Check to see if p1 and p2 (Convex Polygons) overlap</p>
+
+          <h5>Parameters</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>p1</td>
+              <td>Polygon</td>
+              <td>First polygon to check</td>
+            </tr>
+            <tr>
+              <td>p2</td>
+              <td>Polygon</td>
+              <td>Second polygon to check</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>bool</td>
+              <td>true if p1 and p2 overlap, otherwise false</td>
+            </tr>
+          </table>
+                                           |
+          <h4>function rayConvex(r,p)</h4>
+          <p>Check to see if r intersetcts p (Convex Polygon), and return where if it does</p>
+
+          <h5>Parameters</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Param</td>
+              <td>Type</td>
+              <td>Decription</td>
+            </tr>
+            <tr>
+              <td>r</td>
+              <td>Ray</td>
+              <td>Ray to check for intersection</td>
+            </tr>
+            <tr>
+              <td>p</td>
+              <td>Polygon</td>
+              <td>Polygon being intersected</td>
+            </tr>
+          </table>
+
+          <h5>Returns</h5>
+          <table>
+            <tr style="font-weight: bold;">
+              <td>Return</td>
+              <td>Type</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>object</td>
+              <td>{t: t} if there is an intersection at (r.start + (r.end - r.start)*t), otherwise null</td>
+            </tr>
+          </table>
       </div>
 
       <hr>
