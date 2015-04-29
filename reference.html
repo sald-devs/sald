@@ -63,8 +63,7 @@
           <p>The benchmark library can be used to calculate some data about the performance of a function.</p>
 
           <h3>Example</h3>
-<pre><code>
-var benchmark = require('sald:benchmark');
+<pre><code>var benchmark = require('sald:benchmark');
 
 function myReallySlowFunction() {
   var i = 0;
@@ -73,8 +72,7 @@ function myReallySlowFunction() {
   }
 }
 
-console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
-</code></pre>
+console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));</code></pre>
           <h3>Functions</h3>
           <h4>benchmark(fn,opts)</h4>
 
@@ -152,7 +150,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
   x: the x coordinate of the center of the circle
   y: the y coordinate of the center of the circle
   r: the radius of the circle
-}</pre></code>
+}</code></pre>
 
           <h4>Rectangle</h4>
           <p>A rectangle defined by the top left and bottom right points.</p>
@@ -165,7 +163,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
     x: the maximum x coordinate of the rectangle
     y: the maximum y coordinate of the rectangle
   }
-}</pre></code>
+}</code></pre>
 
           <h4>Polygon</h4>
           <p>A polygon defined by the verticies.</p>
@@ -175,7 +173,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
     y: the y coordinate of a vertex in the polygon
   },
   ...
-]</pre></code>
+]</code></pre>
 
           <h4>Ray</h4>
           <p>Ray defined by the start and end points.</p>
@@ -188,7 +186,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
     x: x coordinate of the end of the ray
     y: y coordinate of the end of the ray
   }
-}</pre></code>
+}</code></pre>
 
           <h3>Functions</h3>
 
@@ -298,7 +296,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
               <td>bool</td>
               <td>true if c1 and c2 overlap, otherwise false</td>
             </tr>
-          </table>                                             |
+          </table>
 
           <h4>function rayCircle(r,c)</h4>
           <p>Check to see if r intersetcts c, and return where if it does</p>
@@ -371,7 +369,7 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));
               <td>true if p1 and p2 overlap, otherwise false</td>
             </tr>
           </table>
-                                           |
+
           <h4>function rayConvex(r,p)</h4>
           <p>Check to see if r intersetcts p (Convex Polygon), and return where if it does</p>
 
