@@ -128,6 +128,11 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));</
           </table> 
       </div>
 
+
+<!-- ***************************** -->
+<!-- ****   Collide Section   **** -->
+<!-- ***************************** -->
+
       <hr>
       <a name="collide"></a>
       <div class="jump" id="collideRef">  
@@ -409,12 +414,125 @@ console.log(benchmark(myReallySlowFunction, {iterations: 1000, timeout: 10}));</
           <h4><a href="#top">Return to top</a></h4>
       </div>
 
+
+<!-- ***************************** -->
+<!-- **** Game Object Section **** -->
+<!-- ***************************** -->
+
       <hr>
       <a name="gameobject"></a>
       <div class="jump" id="gameobjectRef">  
         <h2>Game Object</h2>
+        <p>GameObjects can be used to define characters and objects in the game world which can collide. GameObject.js can be viewed [here](../sald/GameObject.js)</p>
+        
+        <h3>Usage</h3>
+        <p>Require GameObject.js in your code</p>
+<pre><code>var GameObject = require('sald:GameObject.js');</code></pre>
+
+        <p>Following which you, you can create new instances of GameObject.</p>
+        <p>Note, by default a game object has a rectangular collider from its top left corner (x, y) to the bottom right corner (x + width, y + height).</p>
+
+        <p>If you want to override this default behavior, pass 0 for width or 0 for height on initialization.*</p>
+
+        <h4>Example</h4>
+<pre><code>var x = 0;
+var y = 0;
+var width = 20;
+var height = 60;
+var anchor = { x : 0, y : 0 }; // this is the top left corner, which happens by default {x : 1, y : 1} is the bottom right corner
+
+var player = new GameObject(x, y, width, height);
+
+// is the same as
+
+var player2 = new GameObject(x, y, width, height, { x : 0, y : 0 });</code></pre>
+
+        <h3>Custom Collision Shapes</h3>
+        <p>If you want the collision shape to be different, you can change it. For example:</p>
+<pre><code>...
+
+var player1 = new GameObject(x, y, width, height, anchor);
+
+...
+
+// A circle with radius 20, 120 pixels in on the x axis, 40 pixels in on the y axis from the anchor
+// r : radius, x : x position of center, y : y position of center
+var circle = {
+  r : 20,
+  x : 120,
+  y : 40,
+};
+
+// A circle half the width away from the anchor and half the height away from the anchor
+var relativeCircle = {
+  r : 0.5, // r is relative to the GameObject's width
+  x : 0.5,
+  y : 0.5
+}
+
+// min : top left corner, max : bottom right corner
+var rectangle = {
+  min : {
+    x : 20,
+    y : 20
+  },
+  max : {
+    x : 80,
+    y : 60
+  }
+};
+
+var relativeRectangle = {
+  min : {
+    x : -0.5,
+    y : -0.5
+  },
+  max : {
+    x : 0.5,
+    y : 0.5
+  }
+}
+
+// a list of {x, y} points listed in Counter Clockwise order which form a convex polygon.
+var convexPolygon = [
+  {x : 20, y : 20},
+  {x : 10, y : 30},
+  {x : 20, y : 40},
+  {x : 30, y : 30}
+];
+
+player1.setCollisionRect(rectangle, false);
+
+player2.setCollisionRect(relativeRectangle, true);
+
+player3.setCollisionCircle(circle, false);
+
+player4.setCollisionCircle(relativeCircle, true);
+
+player5.setCollisionConvex(convexPolygon, false);</code></pre>
+
+        <h3>Specifications</h3>
+
+        <p>GameObject.js supports collisions between Convex Polygons, Circles, and Rectangles. Any two of the listed shapes can collide with each other. (circle/circle, rectangle/circle, etc.)</p>
+
+<pre><code>if (player.isColliding(ball)){
+  // decide what happens when the objects are colliding
+}</code></pre>
+
+        <p>You can also retrieve the collision shape as follows:</p>
+
+        <pre><code>var shape = player.collisionShape();</code></pre>
+
+        <p>Shape will be null if there is no collider, otherwise it will be a json object containing a key that is either "rect", "circle", or "convex", and the value will be the collision object.</p>
+
+        <p>The returned object will not be relative to the objects width and height, but rather absolute, in order to compute collisions with the collision library should you want to add extra functionality (see ray collisions).</p>
         <h4><a href="#top">Return to top</a></h4>
       </div>
+
+
+<!-- ***************************** -->
+<!-- ****** Mainloop Section ***** -->
+<!-- ***************************** -->
 
       <hr>
       <a name="mainloop"></a>
@@ -574,6 +692,11 @@ sald.scene.wheel = wheel;</code></pre>
         <p>NOTE: if not defined, scroll events will scroll the page as usual.</p>
         <h4><a href="#top">Return to top</a></h4>
       </div>
+
+
+<!-- ***************************** -->
+<!-- ******* Sound Section ******* -->
+<!-- ***************************** -->
 
       <hr>
       <a name="sound"></a>
