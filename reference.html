@@ -702,20 +702,146 @@ sald.scene.wheel = wheel;</code></pre>
       <a name="sound"></a>
       <div class="jump" id="soundRef">  
         <h2>Sound</h2>
+        <p>SALD provides a sound support. To use first require sound.js in your code</p>
+        <pre><code>var soundController = require('sald:sound.js');</code></pre>
+
+        <p>Require individual sound files, then play</p>
+<pre><code>var explosionSound = require('./data/sounds/explosion.ogg');
+explosionSound.play();</code></pre>
+
+        <p>Currently, the sound module only supports .ogg files. Here is an online file converter:
+        <a href="http://audio.online-convert.com/convert-to-ogg">http://audio.online-convert.com/convert-to-ogg</a></p>
+
+        <h3>Sound Controller</h3>
+        <p>Use sound controller to control the master volume.</p>
+
+<pre><code>soundController.setVolume(float from 0.0 to 1.0);
+soundController.getVolume() // returns float from 0.0 to 1.0
+soundController.toggleMute();
+soundController.setIsMuted(boolean);
+soundController.isMuted(); // returns boolean</code></pre>
+
+        <h3>CustomAudio Class</h3>
+        <p>The CustomAudio class is used as a wrapper to the Audio html tag. It allows you to play multiple instances of a single sound at the same time.</p>
+
+<pre><code>var explosionSound = require('./data/sound/explosion.ogg');
+
+// The default number of instances is 4
+explosionSound.setNumInstances(number of instances);
+
+explosionSound.getVolume(); // returns float between 0.0 and 1.0
+explosionSound.setVolume(float between 0.0 and 1.0);
+explosionSound.play();
+explosionSound.setShouldLoop(boolean);
+explosionSound.doesLoop(); // returns boolean
+explosionSound.getNumberOfLiveInstances() // How many of this sound is playing right now
+explosionSound.pause(); // pauses all instances of this sound, allowing you to resume at any point
+explosionSound.resume(); // resumes paused audio
+explosionSound.stop(); // Stops all instances of this sounds audio, with no ability to resume</code></pre>
         <h4><a href="#top">Return to top</a></h4>
       </div>
+
+
+
+<!-- ***************************** -->
+<!-- ******* Sprite Section ****** -->
+<!-- ***************************** -->
 
       <hr>
       <a name="sprite"></a>
       <div class="jump" id="spriteRef">  
         <h2>Sprite</h2>
+        <p>Allows the user to draw sprites from a spritesheet and define various animations to be drawn</p>
+
+        <h3>Usage</h3>
+        <p>Create a new sprite object in your game scene file like below</p>
+
+<pre><code>var sprite = require('sald:Sprite.js');
+var heroImg = require('../img/spritesheet.png');</code></pre>
+
+        <p>All the spritesheet objects to be animated have to be strictly defined as below: </p>
+
+<pre><code>var heroSprite = new sprite(heroImg, {
+  'walk' : {
+    x:0,y:0,
+    width:40,height:60,
+    size:4
+  },
+  'run' : {
+    x:0,y:60,
+    width:40,height:60,
+    size:4
+  }
+})</code></pre>
+
+        <p>The first parameter is the spritesheet image, heroImg in this case is the entire spritesheet image with several different animation frames within it. The second parameter has to be a list of animations by name along with x, y, width, height and size properties.</p>
+
+        <p>[x,y represent the indexes in pixel coordinates of start row and column of animation from the spritesheet image]
+        [width,height represent the width and height of each sprite in pixel size, you can check the same in paint for image width and height in pixels]
+        [size is the max number of frames till which that animation needs to be played from the spritesheet image]</p>
+
+        <p>A note about proper sprite splicing: The x and y properties above are what the engine will ultimately use to splice the individual sprites from the sprite sheet. x is the horizontal offset, while y is the vertical offset (with 0,0 representing the top-left corner of the image). There are two things to keep in mind when dealing with pixel coordinates. One - if you truly wish to have well defined and proportional sprites, it helps if the pixel width is divisible by the number of columns and the pixel height is divisible by the number of rows. Otherwise you risk them being clipped at weird positions. Two - If you wish to start cutting from the middle of a sprite sheet and not from the far left, you'll need to make sure that you're providing the top-left corner of the sprite you wish to start at (not the center of the sprite).</p>
+        <ul>
+        -> The draw function takes the following arguments: 
+        * anim: animation name
+        * x: x position in world space
+        * y: y position in world space
+        * scalex: x scale of sprite
+        * scaley: y scale of sprite
+        * anchorx: x anchor value (0-1)
+        * anchory: y anchor value (0-1)
+        </ul>
+
+        <p>Call the draw function inside the update loop.</p>
+        <pre><code>sprite.draw(anim, x, y, )</code></pre>
+
+        <p>You do not need to give the frame number in draw function anymore because it is handled by a framework called Animators inside the Sprite object. When you initialize a Sprite object, each animation of sprite gets an animator object attached to it internally which handles the state of the animation. It also provides neat features like animation speed, looping functionality and stop feature.</p>
+
+        <p>After creating your sprite, you can call these functions to access animators and its functions:</p>
+        <pre><code>
+        sprite.animators[&lt;animation-name&gt;].loop(boolean);
+          - The boolean here can be true or false depending upon whether you want to loop the animation or not 
+
+        sprite.animators[&lt;animation-name&gt;].speed(speed);
+          - The 'speed' has to be in frames/second.
+          - It is optional. Default is 60 frames/second.
+
+        sprite.animators[&lt;animation-name&gt;].stop();
+          - This function is used to stop the animation from running. And resets that animation's the state. (Can be changed, just a design decision)
+        </code></pre>
         <h4><a href="#top">Return to top</a></h4>
       </div>
+
+
+
+<!-- ***************************** -->
+<!-- ****** Tilemap Section ****** -->
+<!-- ***************************** -->
 
       <hr>
       <div class="jump" id="tilemapRef">  
         <a name="tilemap"></a>
         <h2>Tilemap</h2>
+        <p>Require Tilemap.js in your code</p>
+        <pre><code>var Tilemap = require('sald:Tilemap.js');</code></pre>
+
+        <p>Initilize Tilemap with correct parameters.</p>
+<pre><code>Tilemap(img, map, tilW, tilH, tilR, tilC, defaultTile)
+  img  = tilemap image
+  map  = 2d map of which location to draw which tile
+  tilW = pixel width of individual tile
+  tilH = pixel height of individual tile 
+  tilR = Height of tilemap in terms of tiles
+  tilC = Width of tilemap in terms of tiles
+  defaultTile = Number of tile to be draw when outside of map
+</code></pre>
+
+        <p>Tilemap.draw(camera) takes in a object that has properties x &amp; y which defines the center of the map to draw from. Call it after updates to tilemap or camera for redraw.</p>
+<pre><code>camera = {x : 0, y : 0}
+  x = x index location in the 2d world map that was pased to Tilemap
+  y = y index location in the 2d world map that was pased to Tilemap
+</code></pre>
+
         <h4><a href="#top">Return to top</a></h4>
       </div>
     </section>
